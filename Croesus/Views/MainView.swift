@@ -33,19 +33,19 @@ struct ContentView: View {
                         NavigationLink(destination: SummaryView()) {
                             VStack(alignment:.leading){
                                 Text("Summary").font(.title)
-                                Text("An overview of your recent activities").padding(.leading)
+                                Text("An overview of your recent activities").padding(.leading).font(.system(size:13))
                             }
                         }
-                        NavigationLink(destination: QuestionsView()) {
+                        NavigationLink(destination: SurveysView()) {
                             VStack(alignment:.leading){
                                 Text("Surveys").font(.title)
-                                Text("View our open surveys").padding(.leading)
+                                Text("View our open surveys").padding(.leading).font(.system(size:13))
                             }
                         }
                         NavigationLink(destination: ProfileView()) {
                             VStack(alignment:.leading){
                                 Text("My Profile").font(.title)
-                                Text("View and update your profile details").padding(.leading)
+                                Text("View and update your profile details").padding(.leading).font(.system(size:13))
                             }
                         }
                     }

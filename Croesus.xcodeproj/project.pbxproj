@@ -23,6 +23,17 @@
 		4271AD1723E8938E0041639C /* SurveysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1623E8938E0041639C /* SurveysView.swift */; };
 		4271AD1923E8939C0041639C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1823E8939C0041639C /* ProfileView.swift */; };
 		4271AD1C23E8A5090041639C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1B23E8A5090041639C /* ImagePicker.swift */; };
+		42929E5123E9F84400A74D7A /* OngoingSurveys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5023E9F84400A74D7A /* OngoingSurveys.swift */; };
+		42929E5323E9F88400A74D7A /* DbContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5223E9F88400A74D7A /* DbContext.swift */; };
+		42929E5523E9F9E700A74D7A /* SurveyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5423E9F9E700A74D7A /* SurveyItem.swift */; };
+		42929E5723E9FB0300A74D7A /* SurveyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5623E9FB0300A74D7A /* SurveyQuestion.swift */; };
+		42929E5923E9FF3E00A74D7A /* CompleteSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5823E9FF3E00A74D7A /* CompleteSurveyView.swift */; };
+		42929E5B23EA035900A74D7A /* CompleteSurveyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5A23EA035900A74D7A /* CompleteSurveyVM.swift */; };
+		42929E5D23EA167300A74D7A /* ApiServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5C23EA167300A74D7A /* ApiServiceProtocol.swift */; };
+		42929E5F23EA173600A74D7A /* ApiServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E5E23EA173600A74D7A /* ApiServiceImpl.swift */; };
+		42929E6323EA186300A74D7A /* SurveysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E6223EA186300A74D7A /* SurveysRequest.swift */; };
+		42929E6523EA188300A74D7A /* SurveysResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E6423EA188300A74D7A /* SurveysResponse.swift */; };
+		42929E6723EA244700A74D7A /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42929E6623EA244700A74D7A /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +76,17 @@
 		4271AD1623E8938E0041639C /* SurveysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveysView.swift; sourceTree = "<group>"; };
 		4271AD1823E8939C0041639C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4271AD1B23E8A5090041639C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		42929E5023E9F84400A74D7A /* OngoingSurveys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingSurveys.swift; sourceTree = "<group>"; };
+		42929E5223E9F88400A74D7A /* DbContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbContext.swift; sourceTree = "<group>"; };
+		42929E5423E9F9E700A74D7A /* SurveyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyItem.swift; sourceTree = "<group>"; };
+		42929E5623E9FB0300A74D7A /* SurveyQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyQuestion.swift; sourceTree = "<group>"; };
+		42929E5823E9FF3E00A74D7A /* CompleteSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSurveyView.swift; sourceTree = "<group>"; };
+		42929E5A23EA035900A74D7A /* CompleteSurveyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSurveyVM.swift; sourceTree = "<group>"; };
+		42929E5C23EA167300A74D7A /* ApiServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceProtocol.swift; sourceTree = "<group>"; };
+		42929E5E23EA173600A74D7A /* ApiServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceImpl.swift; sourceTree = "<group>"; };
+		42929E6223EA186300A74D7A /* SurveysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveysRequest.swift; sourceTree = "<group>"; };
+		42929E6423EA188300A74D7A /* SurveysResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveysResponse.swift; sourceTree = "<group>"; };
+		42929E6623EA244700A74D7A /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				4271AD0C23E887990041639C /* AppServices.swift */,
+				42929E5223E9F88400A74D7A /* DbContext.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -168,6 +191,10 @@
 		4271AD0B23E887770041639C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				42929E6123EA184300A74D7A /* Responses */,
+				42929E6023EA183000A74D7A /* Requests */,
+				42929E5C23EA167300A74D7A /* ApiServiceProtocol.swift */,
+				42929E5E23EA173600A74D7A /* ApiServiceImpl.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -176,6 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				4271AD0F23E8891A0041639C /* AppService.swift */,
+				42929E5423E9F9E700A74D7A /* SurveyItem.swift */,
+				42929E5623E9FB0300A74D7A /* SurveyQuestion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,7 +215,7 @@
 				4271ACDE23E884060041639C /* MainView.swift */,
 				4271AD1223E88B590041639C /* SummaryView.swift */,
 				4271AD1423E88BAE0041639C /* QuestionsView.swift */,
-				4271AD1623E8938E0041639C /* SurveysView.swift */,
+				42929E4F23E9F82800A74D7A /* Surveys */,
 				4271AD1823E8939C0041639C /* ProfileView.swift */,
 			);
 			path = Views;
@@ -196,8 +225,36 @@
 			isa = PBXGroup;
 			children = (
 				4271AD1B23E8A5090041639C /* ImagePicker.swift */,
+				42929E6623EA244700A74D7A /* ActivityIndicator.swift */,
 			);
 			path = Presentables;
+			sourceTree = "<group>";
+		};
+		42929E4F23E9F82800A74D7A /* Surveys */ = {
+			isa = PBXGroup;
+			children = (
+				42929E5823E9FF3E00A74D7A /* CompleteSurveyView.swift */,
+				4271AD1623E8938E0041639C /* SurveysView.swift */,
+				42929E5023E9F84400A74D7A /* OngoingSurveys.swift */,
+				42929E5A23EA035900A74D7A /* CompleteSurveyVM.swift */,
+			);
+			path = Surveys;
+			sourceTree = "<group>";
+		};
+		42929E6023EA183000A74D7A /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				42929E6223EA186300A74D7A /* SurveysRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		42929E6123EA184300A74D7A /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				42929E6423EA188300A74D7A /* SurveysResponse.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,12 +390,23 @@
 			files = (
 				4271ACD823E884060041639C /* AppDelegate.swift in Sources */,
 				4271AD1323E88B590041639C /* SummaryView.swift in Sources */,
+				42929E5523E9F9E700A74D7A /* SurveyItem.swift in Sources */,
 				4271AD1923E8939C0041639C /* ProfileView.swift in Sources */,
+				42929E5723E9FB0300A74D7A /* SurveyQuestion.swift in Sources */,
+				42929E5923E9FF3E00A74D7A /* CompleteSurveyView.swift in Sources */,
 				4271AD1023E8891A0041639C /* AppService.swift in Sources */,
+				42929E6523EA188300A74D7A /* SurveysResponse.swift in Sources */,
 				4271AD1723E8938E0041639C /* SurveysView.swift in Sources */,
+				42929E5B23EA035900A74D7A /* CompleteSurveyVM.swift in Sources */,
+				42929E5323E9F88400A74D7A /* DbContext.swift in Sources */,
+				42929E5123E9F84400A74D7A /* OngoingSurveys.swift in Sources */,
+				42929E5F23EA173600A74D7A /* ApiServiceImpl.swift in Sources */,
 				4271ACDD23E884060041639C /* Croesus.xcdatamodeld in Sources */,
+				42929E6323EA186300A74D7A /* SurveysRequest.swift in Sources */,
 				4271AD1523E88BAE0041639C /* QuestionsView.swift in Sources */,
+				42929E6723EA244700A74D7A /* ActivityIndicator.swift in Sources */,
 				4271AD1C23E8A5090041639C /* ImagePicker.swift in Sources */,
+				42929E5D23EA167300A74D7A /* ApiServiceProtocol.swift in Sources */,
 				4271AD0D23E8879A0041639C /* AppServices.swift in Sources */,
 				4271ACDF23E884060041639C /* MainView.swift in Sources */,
 				4271ACDA23E884060041639C /* SceneDelegate.swift in Sources */,
