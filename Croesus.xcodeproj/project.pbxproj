@@ -10,12 +10,19 @@
 		4271ACD823E884060041639C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACD723E884060041639C /* AppDelegate.swift */; };
 		4271ACDA23E884060041639C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACD923E884060041639C /* SceneDelegate.swift */; };
 		4271ACDD23E884060041639C /* Croesus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACDB23E884060041639C /* Croesus.xcdatamodeld */; };
-		4271ACDF23E884060041639C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACDE23E884060041639C /* ContentView.swift */; };
+		4271ACDF23E884060041639C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACDE23E884060041639C /* MainView.swift */; };
 		4271ACE123E8840C0041639C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4271ACE023E8840C0041639C /* Assets.xcassets */; };
 		4271ACE423E8840C0041639C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4271ACE323E8840C0041639C /* Preview Assets.xcassets */; };
 		4271ACE723E8840C0041639C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4271ACE523E8840C0041639C /* LaunchScreen.storyboard */; };
 		4271ACF223E8840D0041639C /* CroesusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACF123E8840D0041639C /* CroesusTests.swift */; };
 		4271ACFD23E8840D0041639C /* CroesusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271ACFC23E8840D0041639C /* CroesusUITests.swift */; };
+		4271AD0D23E8879A0041639C /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD0C23E887990041639C /* AppServices.swift */; };
+		4271AD1023E8891A0041639C /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD0F23E8891A0041639C /* AppService.swift */; };
+		4271AD1323E88B590041639C /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1223E88B590041639C /* SummaryView.swift */; };
+		4271AD1523E88BAE0041639C /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1423E88BAE0041639C /* QuestionsView.swift */; };
+		4271AD1723E8938E0041639C /* SurveysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1623E8938E0041639C /* SurveysView.swift */; };
+		4271AD1923E8939C0041639C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1823E8939C0041639C /* ProfileView.swift */; };
+		4271AD1C23E8A5090041639C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4271AD1B23E8A5090041639C /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +47,7 @@
 		4271ACD723E884060041639C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4271ACD923E884060041639C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4271ACDC23E884060041639C /* Croesus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Croesus.xcdatamodel; sourceTree = "<group>"; };
-		4271ACDE23E884060041639C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4271ACDE23E884060041639C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4271ACE023E8840C0041639C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4271ACE323E8840C0041639C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4271ACE623E8840C0041639C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +58,13 @@
 		4271ACF823E8840D0041639C /* CroesusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CroesusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4271ACFC23E8840D0041639C /* CroesusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroesusUITests.swift; sourceTree = "<group>"; };
 		4271ACFE23E8840D0041639C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4271AD0C23E887990041639C /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
+		4271AD0F23E8891A0041639C /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		4271AD1223E88B590041639C /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		4271AD1423E88BAE0041639C /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
+		4271AD1623E8938E0041639C /* SurveysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveysView.swift; sourceTree = "<group>"; };
+		4271AD1823E8939C0041639C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4271AD1B23E8A5090041639C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +115,13 @@
 		4271ACD623E884060041639C /* Croesus */ = {
 			isa = PBXGroup;
 			children = (
+				4271AD1A23E8A4EE0041639C /* Presentables */,
+				4271AD0E23E889080041639C /* Models */,
+				4271AD0B23E887770041639C /* API */,
+				4271AD0A23E887670041639C /* DataStore */,
 				4271ACD723E884060041639C /* AppDelegate.swift */,
 				4271ACD923E884060041639C /* SceneDelegate.swift */,
-				4271ACDE23E884060041639C /* ContentView.swift */,
+				4271AD1123E88B380041639C /* Views */,
 				4271ACE023E8840C0041639C /* Assets.xcassets */,
 				4271ACE523E8840C0041639C /* LaunchScreen.storyboard */,
 				4271ACE823E8840C0041639C /* Info.plist */,
@@ -137,6 +155,49 @@
 				4271ACFE23E8840D0041639C /* Info.plist */,
 			);
 			path = CroesusUITests;
+			sourceTree = "<group>";
+		};
+		4271AD0A23E887670041639C /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				4271AD0C23E887990041639C /* AppServices.swift */,
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
+		4271AD0B23E887770041639C /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		4271AD0E23E889080041639C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4271AD0F23E8891A0041639C /* AppService.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4271AD1123E88B380041639C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4271ACDE23E884060041639C /* MainView.swift */,
+				4271AD1223E88B590041639C /* SummaryView.swift */,
+				4271AD1423E88BAE0041639C /* QuestionsView.swift */,
+				4271AD1623E8938E0041639C /* SurveysView.swift */,
+				4271AD1823E8939C0041639C /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4271AD1A23E8A4EE0041639C /* Presentables */ = {
+			isa = PBXGroup;
+			children = (
+				4271AD1B23E8A5090041639C /* ImagePicker.swift */,
+			);
+			path = Presentables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +332,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4271ACD823E884060041639C /* AppDelegate.swift in Sources */,
+				4271AD1323E88B590041639C /* SummaryView.swift in Sources */,
+				4271AD1923E8939C0041639C /* ProfileView.swift in Sources */,
+				4271AD1023E8891A0041639C /* AppService.swift in Sources */,
+				4271AD1723E8938E0041639C /* SurveysView.swift in Sources */,
 				4271ACDD23E884060041639C /* Croesus.xcdatamodeld in Sources */,
-				4271ACDF23E884060041639C /* ContentView.swift in Sources */,
+				4271AD1523E88BAE0041639C /* QuestionsView.swift in Sources */,
+				4271AD1C23E8A5090041639C /* ImagePicker.swift in Sources */,
+				4271AD0D23E8879A0041639C /* AppServices.swift in Sources */,
+				4271ACDF23E884060041639C /* MainView.swift in Sources */,
 				4271ACDA23E884060041639C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
