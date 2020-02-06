@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19A582a" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Answer" representedClassName="Answer" syncable="YES" codeGenerationType="class">
+        <attribute name="date_added" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="question_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="question_answer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="question_answers" inverseEntity="Question"/>
+    </entity>
+    <entity name="Choice" representedClassName="Choice" syncable="YES" codeGenerationType="class">
+        <attribute name="date_added" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="question_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="question_choice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="question_choices" inverseEntity="Question"/>
+    </entity>
+    <entity name="Question" representedClassName="Question" syncable="YES" codeGenerationType="class">
+        <attribute name="date_added" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="kind" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="survey_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="question_answers" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Answer" inverseName="question_answer" inverseEntity="Answer"/>
+        <relationship name="question_choices" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Choice" inverseName="question_choice" inverseEntity="Choice"/>
+        <relationship name="survey_questions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Survey" inverseName="survey_questions" inverseEntity="Survey"/>
+    </entity>
+    <entity name="Survey" representedClassName="Survey" syncable="YES" codeGenerationType="class">
+        <attribute name="date_added" optional="YES" attributeType="String"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="survey_questions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="survey_questions" inverseEntity="Question"/>
+    </entity>
+    <elements>
+        <element name="Survey" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Question" positionX="-54" positionY="18" width="128" height="163"/>
+        <element name="Choice" positionX="-36" positionY="54" width="128" height="133"/>
+        <element name="Answer" positionX="-18" positionY="99" width="128" height="133"/>
+    </elements>
 </model>

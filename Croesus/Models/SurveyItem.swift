@@ -15,6 +15,7 @@ class SurveyItem: NSObject,Identifiable {
     var id = 0
     var title = ""
     var desc = ""
+    var dateAdded:Date?
     var kind = SurveyKind.Completed
     var questions = [SurveyQuestion]()
 }

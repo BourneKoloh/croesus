@@ -16,6 +16,7 @@ class SurveyQuestion:NSObject,Identifiable {
     var id = 0
     var title = ""
     var type = AnswerKind.Text
+    var dateAdded:Date?
     var choices = [QuestionChoice]()
     var answers = [QuestionAnswer]()
 }
@@ -24,6 +25,7 @@ class SurveyQuestion:NSObject,Identifiable {
 class QuestionAnswer: NSObject,Identifiable {
     var id = 0
     var value = ""
+    var dateAdded:Date?
 }
 
 class QuestionChoice: Identifiable,Hashable{
@@ -40,4 +42,5 @@ class QuestionChoice: Identifiable,Hashable{
     var id = 0
     var title = ""
     var value = ""
+    var dateAdded:Date?
 }

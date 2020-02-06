@@ -1,31 +1,28 @@
 //
-//  CompleteSurveyView.swift
+//  UpdateSurvey.swift
 //  Croesus
 //
-//  Created by Bourne K on 04/02/2020.
+//  Created by Bourne K on 05/02/2020.
 //  Copyright © 2020 Triglobe Soft Solutions. All rights reserved.
 //
 
 import SwiftUI
 
-struct CompleteSurveyView: View {
+struct UpdateSurveyView: View {
     
     //
     @Environment(\.apiService) var service: ApiService
     //
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     @State var showLoading = false
-    var survey: SurveyItem
-    @ObservedObject var model = CompleteSurveyVM()
     
+    var survey: SurveyItem
+    @ObservedObject var model = UpdateSurveyVM()
     
     var body: some View {
-        
         LoadingView(isShowing: self.$showLoading) {
             NavigationView{
                 List{
-                    
                     Section(header:Text(self.survey.title).font(.headline)){
                         if self.survey.questions.count > 0 {
                             ForEach(self.survey.questions){ item in
@@ -35,24 +32,25 @@ struct CompleteSurveyView: View {
                             Text("This Survey has No Questions")
                         }
                     }
-                }.navigationBarTitle(Text("Complete Survey"))
+                }.navigationBarTitle(Text("Update Survey"))
                 .navigationBarItems(leading: Button(action: {
                     //
                     self.presentationMode.wrappedValue.dismiss()
-                    }, label: { Text("Cancel") }),
-                        trailing:
-                   Button("Save") {
-                    self.updateAnswers()
+                }, label: { Text("Cancel") }),trailing:
+                   Button("Update") {
+                    //self.updateAnswers()
                    })
             }.onAppear{
-                self.model.survey = self.survey
+                //self.model.survey = self.survey
             }
         }.onAppear{
             
         }
     }
+    
     //
     func containedView(_ q:SurveyQuestion) -> AnyView {
+        
         switch q.type {
             case .MultipleChoice:
                 return AnyView(VStack(alignment: .leading, spacing: 10){
@@ -78,49 +76,28 @@ struct CompleteSurveyView: View {
             return AnyView(GeometryReader { geometry in
                 VStack(alignment: .leading, spacing: 10){
                     Text("\(q.id+1). \(q.title)").font(.system(size:13))
-                    //TextField("Enter your answer ..",text: self.$model.textAnswer)
-                        TextField("Enter your answer ..", text: Binding(
-                            get: {
-                                //Get current value ..
-                                return self.model.textAnswer
-                                
-                            },
-                            set: {newValue,oldValue in
-                                //update
-                                print("Set answer with \(newValue)")
-                                let ans = QuestionAnswer()
-                                ans.id = q.answers.count
-                                ans.value = newValue
-                                q.answers.append(ans)
-                                //
-                                self.model.textAnswer = newValue
-                                return
-                            }
-                        ))
+                    TextField("Enter your answer ..", text: Binding(
+                        get: {
+                            //Get current value ..
+                            return q.answers[q.id].value
+                            
+                        },
+                        set: {newValue,oldValue in
+                            //update
+                            q.answers[q.id].value = newValue
+                            return
+                        }
+                    ))
                     .overlay(RoundedRectangle(cornerRadius: 4)
                     .stroke(Color(UIColor.lightGray), lineWidth: 2))
                 }.padding(.top)
             })
         }
     }
-    
-    func updateAnswers(){
-        //
-        showLoading = true
-        //
-        service.submitSurvey(model) { (s,  m) in
-            self.showLoading = false
-            if s {
-                self.presentationMode.wrappedValue.dismiss()
-            }else{
-                //Alert Error..
-            }
-        }
-    }
 }
 
-struct CompleteSurveyView_Previews: PreviewProvider {
+struct UpdateSurvey_Previews: PreviewProvider {
     static var previews: some View {
-        CompleteSurveyView(survey: DataContext.Shared.getSurveys(.Ongoing)[0])
+        UpdateSurveyView(survey: DataContext.Shared.getSurveys(.Completed)[0])
     }
 }

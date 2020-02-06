@@ -1,16 +1,15 @@
 //
-//  CompleteSurveyVM.swift
+//  UpdateSurveyVM.swift
 //  Croesus
 //
-//  Created by Bourne K on 04/02/2020.
+//  Created by Bourne K on 06/02/2020.
 //  Copyright © 2020 Triglobe Soft Solutions. All rights reserved.
 //
 
 import SwiftUI
 import Combine
 
-class CompleteSurveyVM:ObservableObject {
-    
+class UpdateSurveyVM:ObservableObject {
     
     var survey: SurveyItem?
     

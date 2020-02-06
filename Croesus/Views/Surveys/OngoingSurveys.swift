@@ -23,8 +23,7 @@ struct OngoingSurveys: View {
         
         LoadingView(isShowing: self.$showLoading) {
             
-            List(DataContext.Shared.getSurveys(.Ongoing)) { s in
-                
+            List(self.surveys) { s in
                 VStack(alignment:.leading){
                     Text(s.title).font(.headline)
                     Text(s.desc).padding(.leading).font(.system(size:13))
@@ -38,18 +37,29 @@ struct OngoingSurveys: View {
                 CompleteSurveyView(survey:self.selectedSurvey!)
             }).navigationBarTitle("Ongoing Surveys")
                 .onAppear {
-                    self.showLoading = true
-                    self.service.fetchSurveys { (s, list, m) in
-                        if s {
-                            //
-                            self.surveys = list
-                        }else{
-                            //Fallback
-                            self.surveys = DataContext.Shared.getSurveys(.Ongoing)
-                        }
-                        self.showLoading = false
-                    }
+                    self.updateSurveys()
             }
+        }
+    }
+    
+    func updateSurveys(){
+        self.showLoading = true
+        self.service.fetchSurveys { (s, list, m) in
+            if s {
+                //
+                self.surveys = list
+            }else{
+                //Fallback
+                var j = DataContext.Shared.getSurveys(.Ongoing)
+                //
+                if j.isEmpty && AppCache.getBool(CacheKeys.DEBUG){
+                    j = DataMocks.getDemoSurveys().filter({ (s) -> Bool in
+                        return s.kind == .Ongoing
+                    })
+                    self.surveys = j
+                }
+            }
+            self.showLoading = false
         }
     }
 }

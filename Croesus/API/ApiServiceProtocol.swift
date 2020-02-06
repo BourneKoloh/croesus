@@ -35,5 +35,12 @@ protocol ApiService : class {
     func syncData(_ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) -> Swift.Void
     
     //MARK: -
+    func buckupData(_ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) -> Swift.Void
+    
+    //MARK: -
     func submitSurvey(_ model:CompleteSurveyVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) -> Swift.Void
+    //MARK:-
+    func updateCustomerDetails(_ model:ProfileVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) -> Swift.Void
+    //MARK: -
+    func submitQuestion(_ model:QuestionVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) -> Swift.Void
 }

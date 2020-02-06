@@ -10,6 +10,9 @@ import Foundation
 import CoreData
 
 class DataContext:NSObject {
+    
+    static let DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
+    
     private static var _inst:DataContext?
     static var Shared:DataContext{
         get{
@@ -19,6 +22,7 @@ class DataContext:NSObject {
             return _inst!
         }
     }
+    var dateFormat = DateFormatter()
     
     // MARK: - Core Data stack
 
@@ -48,6 +52,20 @@ class DataContext:NSObject {
         })
         return container
     }()
+    //
+    lazy var backgroundContext: NSManagedObjectContext = {
+        //
+        let newbackgroundContext = persistentContainer.newBackgroundContext()
+        //
+        newbackgroundContext.automaticallyMergesChangesFromParent = true
+        //
+        return newbackgroundContext
+    }()
+    //MARK: -
+    override private init() {
+        super.init()
+        dateFormat.dateFormat = DataContext.DATE_FORMAT
+    }
 
     // MARK: - Core Data Saving support
 
@@ -65,24 +83,277 @@ class DataContext:NSObject {
         }
     }
     
+    
+    
+    //MARK: -
+    func storeSurvey(_ survey:SurveyItem) -> Bool {
+        //
+        do{
+            let entity = NSEntityDescription.entity(forEntityName:SurveyEntity.TABLE_NAME, in: backgroundContext)!
+            //
+            let entry = NSManagedObject(entity: entity, insertInto: backgroundContext)
+            //
+            entry.setValue(survey.id, forKeyPath: SurveyEntity.COLUMN_ID)
+            entry.setValue(survey.title, forKeyPath: SurveyEntity.COLUMN_TITLE)
+            entry.setValue(survey.desc, forKeyPath: SurveyEntity.COLUMN_DESC)
+            //
+            entry.setValue(dateFormat.string(from: survey.dateAdded ?? Date()), forKeyPath: SurveyEntity.COLUMN_DATE_ADDED)
+            //
+            try backgroundContext.save()
+            
+            //
+            for k in survey.questions {
+                let _ = storeQuestion(k, survey.id)
+            }
+          
+        } catch let error as NSError {
+            print(error)
+          return false
+        }
+        
+        return true
+    }
+    //MARK:
     func getSurveys(_ kind:SurveyKind) -> [SurveyItem] {
         
         var list = [SurveyItem]()
         
-        let s1 = SurveyItem()
-        s1.id = 1
-        s1.kind = .Ongoing
-        s1.title = "Sample Survey 1"
-        list.append(s1)
-        
-        let s2 = SurveyItem()
-        s2.id = 2
-        s2.kind = .Ongoing
-        s2.title = "Sample Survey 2"
-        list.append(s2)
-        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: SurveyEntity.TABLE_NAME)
+        //
+        fetchRequest.predicate = NSPredicate(format: "\(SurveyEntity.COLUMN_KIND) = %@", argumentArray: ["\(kind.rawValue)"])
+        //
+        do {
+            let records = try backgroundContext.fetch(fetchRequest)
+            for r0 in records {
+                
+                let entry = SurveyItem()
+                //
+                entry.title = r0.value(forKeyPath: SurveyEntity.COLUMN_TITLE) as? String ?? ""
+                entry.id = Int(r0.value(forKeyPath: SurveyEntity.COLUMN_ID) as? String ?? "0") ?? 0
+                //
+                switch Int(r0.value(forKeyPath: SurveyEntity.COLUMN_KIND) as? String ?? "0") ?? 0 {
+                    case SurveyKind.Ongoing.rawValue:
+                        entry.kind = .Ongoing
+                    break
+                    case SurveyKind.Completed.rawValue:
+                        entry.kind = .Completed
+                    break
+                    default:
+                        entry.kind = .All
+                    break
+                }
+                //
+                entry.dateAdded = dateFormat.date(from: r0.value(forKeyPath: SurveyEntity.COLUMN_DATE_ADDED) as? String ?? "")
+                //
+                entry.questions.append(contentsOf: getSurveyQuestions(entry.id))
+                //
+                list.append(entry)
+            }
+        }catch let error as NSError{
+            print(error)
+        }
         
         return list
     }
 
+    //MARK: -
+    func storeQuestion(_ question:SurveyQuestion, _ surveyId:Int) -> Bool {
+        //
+        do{
+            let entity = NSEntityDescription.entity(forEntityName:QuestionEntity.TABLE_NAME, in: backgroundContext)!
+            //
+            let entry = NSManagedObject(entity: entity, insertInto: backgroundContext)
+            //
+            entry.setValue(question.id, forKeyPath: QuestionEntity.COLUMN_ID)
+            entry.setValue(question.title, forKeyPath: QuestionEntity.COLUMN_TITLE)
+            entry.setValue(question.type.rawValue, forKeyPath: QuestionEntity.COLUMN_TYPE)
+            //
+            entry.setValue(surveyId, forKeyPath: QuestionEntity.COLUMN_SURVEY)
+            //
+            entry.setValue(dateFormat.string(from: question.dateAdded ?? Date()), forKeyPath: QuestionEntity.COLUMN_DATE_ADDED)
+            //
+            try backgroundContext.save()
+            
+            //
+            for j in question.answers {
+                let _ = storeAnswer(j, question.id)
+            }
+            //
+            for k in question.choices {
+                let _ = storeChoice(k,question.id)
+            }
+          
+        } catch let error as NSError {
+            print(error)
+          return false
+        }
+        
+        return true
+    }
+    //MARK:
+    func getSurveyQuestions(_ surveyId:Int) ->[SurveyQuestion] {
+        //
+        var list = [SurveyQuestion]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: QuestionEntity.TABLE_NAME)
+        
+        //
+        fetchRequest.predicate = NSPredicate(format: "\(QuestionEntity.COLUMN_SURVEY) = %@", argumentArray: ["\(surveyId)"])
+        //
+        do {
+            let records = try backgroundContext.fetch(fetchRequest)
+            for r0 in records {
+                
+                let entry = SurveyQuestion()
+                //
+                entry.title = r0.value(forKeyPath: QuestionEntity.COLUMN_TITLE) as? String ?? ""
+                entry.id = Int(r0.value(forKeyPath: QuestionEntity.COLUMN_ID) as? String ?? "0") ?? 0
+                //
+                switch Int(r0.value(forKeyPath: QuestionEntity.COLUMN_TYPE) as? String ?? "0") ?? 0 {
+                case AnswerKind.MultipleChoice.rawValue:
+                    entry.type = .MultipleChoice
+                    break
+                    case AnswerKind.SingleChoice.rawValue:
+                        entry.type = .SingleChoice
+                    break
+                    default:
+                        entry.type = .Text
+                    break
+                }
+                //
+                entry.dateAdded = dateFormat.date(from: r0.value(forKeyPath: QuestionEntity.COLUMN_DATE_ADDED) as? String ?? "")
+                //
+                entry.choices.append(contentsOf: getQuestionChoices(entry.id))
+                entry.answers.append(contentsOf: getQuestionAnswers(entry.id))
+                //
+                list.append(entry)
+            }
+        }catch let error as NSError{
+            print(error)
+        }
+        
+        return list
+    }
+    
+    //MARK: -
+    func storeChoice(_ choice:QuestionChoice, _ questionId:Int) -> Bool {
+        //
+        do{
+            let entity = NSEntityDescription.entity(forEntityName:ChoiceEntity.TABLE_NAME, in: backgroundContext)!
+            //
+            let entry = NSManagedObject(entity: entity, insertInto: backgroundContext)
+            //
+            entry.setValue(choice.id, forKeyPath: ChoiceEntity.COLUMN_ID)
+            entry.setValue(choice.title, forKeyPath: ChoiceEntity.COLUMN_TITLE)
+            entry.setValue(choice.value, forKeyPath: ChoiceEntity.COLUMN_VALUE)
+            //
+            entry.setValue(questionId, forKeyPath: ChoiceEntity.COLUMN_QUESTION)
+            //
+            entry.setValue(dateFormat.string(from: choice.dateAdded ?? Date()), forKeyPath: ChoiceEntity.COLUMN_DATE_ADDED)
+            //
+            try backgroundContext.save()
+            
+            //
+            
+          
+        } catch let error as NSError {
+            print(error)
+          return false
+        }
+        
+        return true
+    }
+    //MARK:
+    func getQuestionChoices(_ questionId:Int) ->[QuestionChoice] {
+        //
+        var list = [QuestionChoice]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: ChoiceEntity.TABLE_NAME)
+        
+        //
+        fetchRequest.predicate = NSPredicate(format: "\(ChoiceEntity.COLUMN_QUESTION) = %@", argumentArray: ["\(questionId)"])
+        //
+        do {
+            let records = try backgroundContext.fetch(fetchRequest)
+            for r0 in records {
+                
+                let entry = QuestionChoice()
+                //
+                entry.title = r0.value(forKeyPath: ChoiceEntity.COLUMN_TITLE) as? String ?? ""
+                entry.id = Int(r0.value(forKeyPath: ChoiceEntity.COLUMN_ID) as? String ?? "0") ?? 0
+                //
+                entry.value = r0.value(forKeyPath: ChoiceEntity.COLUMN_VALUE) as? String ?? ""
+                //
+                entry.dateAdded = dateFormat.date(from: r0.value(forKeyPath: ChoiceEntity.COLUMN_DATE_ADDED) as? String ?? "")
+                //
+                
+                //
+                list.append(entry)
+            }
+        }catch let error as NSError{
+            print(error)
+        }
+        
+        return list
+    }
+    
+    //MARK: -
+    func storeAnswer(_ answer:QuestionAnswer, _ questionId:Int) -> Bool {
+        //
+        do{
+            let entity = NSEntityDescription.entity(forEntityName:AnswerEntity.TABLE_NAME, in: backgroundContext)!
+            //
+            let entry = NSManagedObject(entity: entity, insertInto: backgroundContext)
+            //
+            entry.setValue(answer.id, forKeyPath: AnswerEntity.COLUMN_ID)
+            entry.setValue(answer.value, forKeyPath: AnswerEntity.COLUMN_VALUE)
+            //
+            entry.setValue(questionId, forKeyPath: AnswerEntity.COLUMN_QUESTION)
+            //
+            entry.setValue(dateFormat.string(from: answer.dateAdded ?? Date()), forKeyPath: AnswerEntity.COLUMN_DATE_ADDED)
+            //
+            try backgroundContext.save()
+            
+            //
+            
+          
+        } catch let error as NSError {
+            print(error)
+          return false
+        }
+        
+        return true
+    }
+    //MARK:
+    func getQuestionAnswers(_ questionId:Int) ->[QuestionAnswer] {
+        //
+        var list = [QuestionAnswer]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: AnswerEntity.TABLE_NAME)
+        
+        //
+        fetchRequest.predicate = NSPredicate(format: "\(AnswerEntity.COLUMN_QUESTION) = %@", argumentArray: ["\(questionId)"])
+        //
+        do {
+            let records = try backgroundContext.fetch(fetchRequest)
+            for r0 in records {
+                
+                let entry = QuestionAnswer()
+                //
+                entry.id = Int(r0.value(forKeyPath: AnswerEntity.COLUMN_ID) as? String ?? "0") ?? 0
+                //
+                entry.value = r0.value(forKeyPath: AnswerEntity.COLUMN_VALUE) as? String ?? ""
+                //
+                entry.dateAdded = dateFormat.date(from: r0.value(forKeyPath: AnswerEntity.COLUMN_DATE_ADDED) as? String ?? "")
+                //
+                
+                //
+                list.append(entry)
+            }
+        }catch let error as NSError{
+            print(error)
+        }
+        
+        return list
+    }
 }

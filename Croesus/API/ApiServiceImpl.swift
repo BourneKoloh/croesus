@@ -11,7 +11,6 @@ import Foundation
 class ApiServiceImpl:NSObject, ApiService {
     //Shared Instance
     fileprivate static var _inst:ApiService? = nil
-    fileprivate var BASE_URL = "https://www.example.com/croesus"
     //
     private let dispatchQueue = DispatchQueue(label: "apiservice.queue.dispatcheueuq")
     
@@ -37,6 +36,19 @@ class ApiServiceImpl:NSObject, ApiService {
     // MARK: -
     func syncData(_ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void){
 
+        //Check Network Connection
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,"Your NOT connected to the internet")
+            return
+        }
+        //Check Network Intermitance.. WiFi should be connected
+        guard NetworkProps.connectivity.isReachableViaWiFi else {
+            //FAIL.
+            completion(false,"WiFi Connection is Required to Update Profile")
+            return
+        }
+        //Upload simulation..
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
             //Dummy Static Data..
             completion(true,"Success")
@@ -44,18 +56,64 @@ class ApiServiceImpl:NSObject, ApiService {
     }
     
     // MARK: -
-    func submitSurvey(_ model:CompleteSurveyVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void){
+    func buckupData(_ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void){
         
+        //Check Network Connection
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,"Your NOT connected to the internet")
+            return
+        }
+        //Check Network Intermitance.. WiFi should be connected
+        guard NetworkProps.connectivity.isReachableViaWiFi else {
+            //FAIL.
+            completion(false,"WiFi Connection is Required to Update Profile")
+            return
+        }
+        //Upload simulation..
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
             //Dummy Static Data..
+            
             completion(true,"Success")
+        }
+    }
+    
+    // MARK: -
+    func submitSurvey(_ model:CompleteSurveyVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void){
+        //Check Network Connection
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,"Your NOT connected to the internet")
+            return
+        }
+        //Check Network Intermitance.. WiFi should be connected
+        guard NetworkProps.connectivity.isReachableViaWiFi else {
+            //FAIL.
+            completion(false,"WiFi Connection is Required to Update Profile")
+            return
+        }
+        //Upload simulation..
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            //Store to local DB
+            if DataContext.Shared.storeSurvey(model.survey!) {
+                //
+                completion(true,"Success")
+            }else{
+                completion(true,"Operation Failed.")
+            }
         }
     }
     
     // MARK: - Implement for loading loading surveys
     func fetchSurveys(_ completion: @escaping (_ s:Bool, _ list:[SurveyItem], _ msg: String?) -> Void) {
         //
-        guard let url = URL(string: "\(BASE_URL)/surveys") else {
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,[SurveyItem](),"You are NOT connected to the internet.")
+            return
+        }
+        //
+        guard let url = URL(string: "\(Routes.HOST)/surveys") else {
             completion(false,[SurveyItem](),"Bad Service End-Point")
                return
         }
@@ -132,6 +190,49 @@ class ApiServiceImpl:NSObject, ApiService {
         }
         //
         task.resume()
+    }
+    
+    //MARK: -
+    func updateCustomerDetails(_ model:ProfileVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void) {
+        
+        //Check Network Connection
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,"Your NOT connected to the internet")
+            return
+        }
+        //Check Network Intermitance.. WiFi should be connected
+        guard NetworkProps.connectivity.isReachableViaWiFi else {
+            //FAIL.
+            completion(false,"WiFi Connection is Required to Update Profile")
+            return
+        }
+        //Upload simulation..
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            //
+            completion(true,"Success")
+        }
+    }
+    
+    //MARK: -
+    func submitQuestion(_ model:QuestionVM, _ completion:@escaping(_ s:Bool, _ msg:String?)->Swift.Void){
+        //Check Network Connection
+        guard NetworkProps.connectivity.status != .unreachable else {
+            //FAIL.
+            completion(false,"Your NOT connected to the internet")
+            return
+        }
+        //Check Network Intermitance.. WiFi should be connected
+        guard NetworkProps.connectivity.isReachableViaWiFi else {
+            //FAIL.
+            completion(false,"WiFi Connection is Required to Update Profile")
+            return
+        }
+        //Upload simulation..
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            //
+            completion(true,"Success")
+        }
     }
 }
 

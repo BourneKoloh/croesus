@@ -25,6 +25,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView().environment(\.managedObjectContext, context)
+        
+        do {
+            try NetworkProps.connectivity = Connectivity(hostname: "https://www.google.com/")
+        }
+        catch {
+            switch error as? NetworkProps.Error {
+            case let .failedToCreateWith(hostname)?:
+                print("Network error:\nFailed to create connectivity object With host named:", hostname)
+            case let .failedToInitializeWith(address)?:
+                print("Network error:\nFailed to initialize connectivity object With address:", address)
+            case .failedToSetCallout?:
+                print("Network error:\nFailed to set callout")
+            case .failedToSetDispatchQueue?:
+                print("Network error:\nFailed to set DispatchQueue")
+            case .none:
+                print(error)
+            }
+        }
+        //ENABLE DEBUG M
+        let _ = AppCache.storeBool(CacheKeys.DEBUG, true)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
