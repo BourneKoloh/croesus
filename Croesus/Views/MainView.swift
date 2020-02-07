@@ -44,12 +44,12 @@ struct ContentView: View {
                                 HStack{
                                     Text("Completed Surveys").font(.system(size:15))
                                     Spacer()
-                                    Text("5").font(.system(size:15))
+                                    self.getSurveyCountView(.Completed)
                                 }
                                 HStack{
                                     Text("Ongoing Surveys").font(.system(size:15))
                                     Spacer()
-                                    Text("10").font(.system(size:15))
+                                    self.getSurveyCountView(.Ongoing)
                                 }
                             }
                         }
@@ -155,6 +155,34 @@ struct ContentView: View {
                     }
                 }
             }.background(Color.gray)
+        }
+    }
+    
+    func getSurveyCountView(_ kind:SurveyKind) -> AnyView {
+        
+        if kind == .Ongoing {
+            var count = 0
+            if AppCache.getBool(CacheKeys.DEBUG){
+                count = DataMocks.getDemoSurveys().filter({ (s) -> Bool in
+                    return s.kind == .Ongoing
+                }).count
+            }else{
+                count = DataContext.Shared.getSurveys(.Ongoing).count
+            }
+            return AnyView(Text("\(count)").font(.system(size:15)))
+        }else if kind == .Completed {
+            var count = 0
+            if AppCache.getBool(CacheKeys.DEBUG){
+                count = DataMocks.getDemoSurveys().filter({ (s) -> Bool in
+                    return s.kind == .Completed
+                }).count
+            }else{
+                count = DataContext.Shared.getSurveys(.Completed).count
+            }
+            return AnyView(Text("\(count)").font(.system(size:15)))
+        }else {
+            let count = AppCache.getBool(CacheKeys.DEBUG) ? DataMocks.getDemoSurveys().count : DataContext.Shared.getSurveys(.All).count
+            return AnyView(Text("\(count)").font(.system(size:15)))
         }
     }
     

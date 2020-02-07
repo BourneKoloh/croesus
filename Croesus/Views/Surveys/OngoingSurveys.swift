@@ -17,7 +17,9 @@ struct OngoingSurveys: View {
     @State var showCompleteSurvey = false
     @State var showLoading = false
     
-    @State var surveys = [SurveyItem]()
+    @State var surveys = DataMocks.getDemoSurveys().filter({ (s) -> Bool in
+        return s.kind == .Ongoing
+    })
     
     var body: some View {
         

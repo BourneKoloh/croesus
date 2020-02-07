@@ -16,7 +16,9 @@ struct CompletedSurveysView: View {
     @State var showUpdateSurvey = false
     @State var selectedSurvey:SurveyItem?
     
-    @State var surveys = [SurveyItem]()
+    @State var surveys = DataMocks.getDemoSurveys().filter({ (s) -> Bool in
+        return s.kind == .Completed
+    })
     
     @State var showAlert = false
     @State var showSheet = false
